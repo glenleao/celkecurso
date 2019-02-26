@@ -1,4 +1,5 @@
 <?php
+session_start();
  include_once './conexao.php';
  ?>
 <!doctype html>
@@ -19,6 +20,10 @@
     <div class="container py-5">
     <h1>Listar contatos</h1>
     <?php
+    if (isset($_SESSION['msg'])) {
+    echo $_SESSION['msg'];
+    unset($_SESSION['msg']);
+}
     //SQL para selecionar os registros
     $result_msg_cont = "SELECT * FROM mensagens_contato ORDER BY id ASC";
 
@@ -30,7 +35,8 @@
       echo "ID: " . $row_msg_cont['id'] . "<br>";
       echo "Nome: " . $row_msg_cont['nome'] . "<br>";
       echo "E-mail: " . $row_msg_cont['email'] . "<br>";
-      echo "Assunto: " . $row_msg_cont['assunto'] . "<br><hr>";
+      echo "Assunto: " . $row_msg_cont['assunto'] . "<br>";
+      echo "<a href='editar.php?id=".$row_msg_cont['id']."'>Editar</a><br><hr>";
     }
 
     ?>
